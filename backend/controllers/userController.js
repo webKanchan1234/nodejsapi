@@ -22,13 +22,13 @@ exports.registerUser = async(req,res,next)=>{
             expires:new Date(Date.now() + 2 * 24 * 60 * 60 * 1000),
             httpOnly:true
         }
-        res.status(200).cookie("token",token,options).json({
+        res.status(201).cookie("token",token,options).json({
             success:true,
             user,
             token
         })
     } catch (error) {
-        res.status(400).json({
+        res.status(500).json({
             success:false,
             msg:error.msg
         })
@@ -64,7 +64,7 @@ exports.loginUser = async(req,res,next)=>{
             token
         })
     } catch (error) {
-        res.status(200).json({
+        res.status(500).json({
             success:false,
             msg:error.msg
         })
@@ -82,7 +82,7 @@ exports.logoutUser = async(req,res,next)=>{
             msg:"Logout"
         })
     } catch (error) {
-        res.status(400).json({
+        res.status(500).json({
             success:false,
             msg:error.msg
         })
@@ -93,12 +93,12 @@ exports.allSellers = async(req,res,next) =>{
     try {
         const {role} = req.body
         const sellers = await User.find({role})
-        res.status(400).json({
+        res.status(200).json({
             success:false,
             sellers
         })
     } catch (error) {
-        res.status(400).json({
+        res.status(500).json({
             success:false,
             msg:error.msg
         })
@@ -108,12 +108,12 @@ exports.allSellers = async(req,res,next) =>{
 exports.sellerDetails = async(req,res,next) =>{
     try {
         const seller = await User.findById(req.params.id).populate("products orders")
-        res.status(400).json({
+        res.status(200).json({
             success:false,
             seller
         })
     } catch (error) {
-        res.status(400).json({
+        res.status(500).json({
             success:false,
             msg:error.msg
         })

@@ -19,7 +19,7 @@ exports.orderItems = async(req,res,next)=>{
             order
         })
     } catch (error) {
-        res.status(400).json({
+        res.status(500).json({
             success:false,
             msg:error.msg
         })
@@ -30,12 +30,12 @@ exports.orderItems = async(req,res,next)=>{
 exports.allOrders = async(req,res,next)=>{
     try {
         const orders = await Order.find()
-        res.status(400).json({
+        res.status(200).json({
             success:true,
             orders
         })
     } catch (error) {
-        res.status(400).json({
+        res.status(500).json({
             success:false,
             msg:error.msg
         })

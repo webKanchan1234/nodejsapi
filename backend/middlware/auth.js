@@ -5,7 +5,7 @@ exports.isAuthenticated = async(req,res,next)=>{
     try {
         const {token} = req.cookies
         if(!token){
-            return res.status(400).json({
+            return res.status(401).json({
                 success:false,
                 msg:"Please login first"
             })
@@ -14,7 +14,7 @@ exports.isAuthenticated = async(req,res,next)=>{
         req.user = await User.findById(decode._id)
         next()
     } catch (error) {
-        res.status(400).json({
+        res.status(500).json({
             success:false,
             msg:error.msg
         })
